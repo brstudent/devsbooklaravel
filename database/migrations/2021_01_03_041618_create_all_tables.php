@@ -13,9 +13,46 @@ class CreateAllTables extends Migration
      */
     public function up()
     {
-        Schema::create('all_tables', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('email', 100);
+            $table->string('password', 200);
+            $table->string('name', 100);
+            $table->date('birthdate');
+            $table->string('city', 100)->nullable();
+            $table->string('work', 100)->nullable();
+            $table->string('avatar', 100)->default('default.jpg');
+            $table->string('cover', 100)->default('cover.jpg');
+            $table->string('token', 200);
+        });
+
+        Schema::create('userrelations', function (Blueprint $table) {
+            $table->id();
+            $table->integer('user_from');
+            $table->integer('user_to');
+        });
+
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->integer('id_user');
+            $table->string('type', 20);
+            $table->dateTime('created_at');
+            $table->text('body');
+        });
+
+        Schema::create('postlikes', function (Blueprint $table) {
+            $table->id();
+            $table->integer('id_post');
+            $table->integer('id_user');
+            $table->dateTime('created_at');
+        });
+
+        Schema::create('postcomments', function (Blueprint $table) {
+            $table->id();
+            $table->integer('id_post');
+            $table->integer('id_user');
+            $table->dateTime('created_at');
+            $table->text('body');
         });
     }
 
@@ -26,6 +63,10 @@ class CreateAllTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('all_tables');
+        Schema::dropIfExists('users');
+        Schema::dropIfExists('userrelations');
+        Schema::dropIfExists('posts');
+        Schema::dropIfExists('postlikes');
+        Schema::dropIfExists('postcomments');
     }
 }
