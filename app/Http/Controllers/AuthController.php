@@ -98,6 +98,7 @@ class AuthController extends Controller
                 }
 
                 $array['token'] = $token;
+                
             } else {
                 $array['error'] = 'E-mail já cadastrado!';
                 return $array;
