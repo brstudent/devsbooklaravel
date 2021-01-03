@@ -23,7 +23,7 @@ class CreateAllTables extends Migration
             $table->string('work', 100)->nullable();
             $table->string('avatar', 100)->default('default.jpg');
             $table->string('cover', 100)->default('cover.jpg');
-            $table->string('token', 200);
+            $table->string('token', 200)->nullable();
         });
 
         Schema::create('userrelations', function (Blueprint $table) {
