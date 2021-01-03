@@ -36,7 +36,7 @@ class AuthController extends Controller
             ]);
 
             if(!$token) {
-                $array['error'] = 'E-mail e/ou senha errado!';
+                $array['error'] = 'E-mail e/ou senha errados!';
                 return $array;
             }
 
