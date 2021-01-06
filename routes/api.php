@@ -25,6 +25,7 @@ Route::post('/auth/logout', [App\Http\Controllers\AuthController::class, 'logout
 Route::post('/auth/refresh', [App\Http\Controllers\AuthController::class, 'refresh']);
 
 Route::post('/user', [App\Http\Controllers\AuthController::class, 'create']);
+/*
 Route::put('/user', [App\Http\Controllers\UserController::class, 'update']);
 Route::post('/user/avatar', [App\Http\Controllers\UserController::class, 'updateAvatar']);
 Route::post('/user/cover', [App\Http\Controllers\UserController::class, 'updateCover']);
@@ -42,3 +43,4 @@ Route::post('/post/{id}/like', [App\Http\Controllers\PostController::class, 'lik
 Route::post('/post/{id}/comment', [App\Http\Controllers\PostController::class, 'comment']);
 
 Route::post('/search', [App\Http\Controllers\SearchController::class, 'search']);
+*/
