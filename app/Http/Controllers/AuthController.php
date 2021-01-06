@@ -57,7 +57,7 @@ class AuthController extends Controller
         $token = auth()->refresh();
         return [
             'error' => '',
-            'error' => $token
+            'token' => $token
         ];
     }
 

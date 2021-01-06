@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\UserRelation;
+use App\Models\Post;
+use Image;
 
 class UserController extends Controller
 {
@@ -78,6 +81,99 @@ class UserController extends Controller
     }
 
     public function updateAvatar(Request $request) {
-        
+        $array = ['error' => ''];
+        $allowedTypes = ['image/jpg', 'image/jpeg', 'image/png'];
+
+        $image = $request->file('avatar');
+
+        if($image) {
+            if(in_array($image->getClientMimeType(), $allowedTypes)) {
+
+                $filename = md5(time().rand(0,9999)).'jpg';
+                $destPath = public_path('/madia/avatars');
+
+                $img = Image::make($image->path())
+                    ->fit(200, 200)
+                    ->save($destPath.'/'.$filename);
+                $user = User::find($this->loggedUser['id']);
+                $user->avatar = $filename;
+                $user->save();
+
+                $array['url'] = url('/media/avatars/'.$filename);
+            } else {
+                $array['error'] = 'Arquivo não suportado!';
+            return $array;
+            }
+        } else {
+            $array['error'] = 'Arquivo não enviado!';
+            return $array;
+        }
+
+        return $array;
+    }
+
+    public function updateCover(Request $request) {
+        $array = ['error' => ''];
+        $allowedTypes = ['image/jpg', 'image/jpeg', 'image/png'];
+
+        $image = $request->file('cover');
+
+        if($image) {
+            if(in_array($image->getClientMimeType(), $allowedTypes)) {
+                $filename = md5(time().rand(0,9999)).'jpg';
+                $destPath = public_path('/madia/covers');
+
+                $img = Image::make($image->path())
+                    ->fit(850, 310)
+                    ->save($destPath.'/'.$filename);
+                $user = User::find($this->loggedUser['id']);
+                $user->cover = $filename;
+                $user->save();
+
+                $array['url'] = url('/media/covers/'.$filename);
+            } else {
+                $array['error'] = 'Arquivo não suportado!';
+            return $array;
+            }
+        } else {
+            $array['error'] = 'Arquivo não enviado!';
+            return $array;
+        }
+
+        return $array;
+    }
+
+    public function read() {
+        $array = ['error' => ''];
+
+        if($id) {
+            $info = User::find($id);
+            if(!$info) {
+                $array['error'] = 'Usuário inexistente!';
+                return $array;
+            }
+        } else {
+            $info = $this->loggedUser;
+        }
+
+        $info['avatar'] = url('madia/avatars/'.$info['avatar']);
+        $info['cover'] = url('madia/covers/'.$info['cover']);
+
+        $info['me'] = ($info['id'] == $this->loggedUser['id']) ? true : false;
+
+        $dateFrom = new \DateTime($info['birthdate']);
+        $dateTo = new \DateTime('today');
+        $info['age'] = $dateFrom->diff($dateTo)->y;
+
+        $info['followres'] = UserRelation::where('user_to', $info['id'])->count();
+        $info['following'] = UserRelation::where('user_from', $info['id'])->count();
+       
+        $info['photoCount'] = Post::where('id_user', $info['id'])
+        ->where('type', 'photo')
+        ->count();
+
+        $array['data'] = $info;
+
+        return $array;
     }
 }
