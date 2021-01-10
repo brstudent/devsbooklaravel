@@ -27,19 +27,18 @@ Route::post('/auth/refresh', [App\Http\Controllers\AuthController::class, 'refre
 Route::post('/user', [App\Http\Controllers\AuthController::class, 'create']);
 
 Route::put('/user', [App\Http\Controllers\UserController::class, 'update']);
-/*
 Route::post('/user/avatar', [App\Http\Controllers\UserController::class, 'updateAvatar']);
 Route::post('/user/cover', [App\Http\Controllers\UserController::class, 'updateCover']);
-
+/*
 Route::get('/feed', [App\Http\Controllers\FeedController::class, 'read']);
 Route::get('/user/feed', [App\Http\Controllers\FeedController::class, 'userFeed']);
 Route::get('/user/{id}/feed', [App\Http\Controllers\FeedController::class, 'userFeed']);
 
 Route::get('/user', [App\Http\Controllers\UserController::class, 'read']);
 Route::get('/user/{id}', [App\Http\Controllers\UserController::class, 'read']);
-
+*/
 Route::post('/feed', [App\Http\Controllers\FeedController::class, 'create']);
-
+/*
 Route::post('/post/{id}/like', [App\Http\Controllers\PostController::class, 'like']);
 Route::post('/post/{id}/comment', [App\Http\Controllers\PostController::class, 'comment']);
 
