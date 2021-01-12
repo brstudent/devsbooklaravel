@@ -105,9 +105,9 @@ class FeedController extends Controller
         // 2. Pegar os posts dessa galera ORDENADO POR DATA
         $postList = Post::whereIn('id_user', $users)
         ->orderBy('created_at', 'desc')
-        ->offset()
+        ->offset($page * $perPage)
         ->limit($perPage)
-        -get();
+        ->get();
 
         $total = Post::whereIn('id_user', $users)->count();
         $pageCount = ceil($total / $perPage);
@@ -115,7 +115,7 @@ class FeedController extends Controller
         // 3. Preencher com todas as informações adicionais
         $posts = $this->_postListToObject($postList, $this->loggedUser['id']);
 
-        $array['posts'] = [];
+        $array['posts'] = $posts;
         $array['pageCount'] = $pageCount;
         $array['currentPage'] = $page;
 
