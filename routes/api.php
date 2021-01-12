@@ -38,8 +38,9 @@ Route::get('/user', [App\Http\Controllers\UserController::class, 'read']);
 Route::get('/user/{id}', [App\Http\Controllers\UserController::class, 'read']);
 
 Route::post('/feed', [App\Http\Controllers\FeedController::class, 'create']);
-/*
+
 Route::post('/post/{id}/like', [App\Http\Controllers\PostController::class, 'like']);
+/*
 Route::post('/post/{id}/comment', [App\Http\Controllers\PostController::class, 'comment']);
 
 Route::post('/search', [App\Http\Controllers\SearchController::class, 'search']);
