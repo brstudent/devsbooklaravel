@@ -34,8 +34,9 @@ Route::get('/feed', [App\Http\Controllers\FeedController::class, 'read']);
 Route::get('/user/feed', [App\Http\Controllers\FeedController::class, 'userFeed']);
 Route::get('/user/{id}/feed', [App\Http\Controllers\FeedController::class, 'userFeed']);
 Route::post('/user/{id}/follow', [App\Http\Controllers\UserController::class, 'follow']);
-//Route::get('/user/{id}/followers', [App\Http\Controllers\UserController::class, 'followers']);
-//Route::g('/user/{id}/photos', [App\Http\Controllers\UserController::class, 'photos']);
+Route::get('/user/{id}/followers', [App\Http\Controllers\UserController::class, 'followers']);
+Route::get('/user/{id}/photos', [App\Http\Controllers\FeedController::class, 'userPhotos']);
+
 Route::get('/user', [App\Http\Controllers\UserController::class, 'read']);
 Route::get('/user/{id}', [App\Http\Controllers\UserController::class, 'read']);
 
