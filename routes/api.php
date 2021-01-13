@@ -32,6 +32,8 @@ Route::post('/user/cover', [App\Http\Controllers\UserController::class, 'updateC
 
 Route::get('/feed', [App\Http\Controllers\FeedController::class, 'read']);
 Route::get('/user/feed', [App\Http\Controllers\FeedController::class, 'userFeed']);
+Route::get('/user/photos', [App\Http\Controllers\FeedController::class, 'userPhotos']);
+
 Route::get('/user/{id}/feed', [App\Http\Controllers\FeedController::class, 'userFeed']);
 Route::post('/user/{id}/follow', [App\Http\Controllers\UserController::class, 'follow']);
 Route::get('/user/{id}/followers', [App\Http\Controllers\UserController::class, 'followers']);
